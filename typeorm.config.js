@@ -4,7 +4,7 @@ module.exports = {
   port: 5432,
   username: 'postgres',
   password: '12345',
-  database: 'postgres',
+  database: 'tododb',
   entities: ['dist/**/*.entity{.ts,.js}'],
   synchronize: true,
 };
