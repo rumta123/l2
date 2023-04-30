@@ -10,20 +10,20 @@ export class TodoService {
     private readonly todoRepository: Repository<Todo>,
   ) {}
 
-  async findAll(): Promise<Todo[]> {
+  async getAll(): Promise<Todo[]> {
     return await this.todoRepository.find();
   }
 
-  async createTodo(
-    title: string,
-    description: string,
-    isDone: boolean,
-  ): Promise<Todo> {
-    const todo = new Todo();
-    todo.title = title;
-    todo.description = description;
-    todo.isDone = isDone;
-  
+  async create(todo: Todo): Promise<Todo> {
     return await this.todoRepository.save(todo);
+  }
+
+  async update(id: number, todo: Todo): Promise<Todo> {
+    await this.todoRepository.update(id, { ...todo }); // обновляем поля из объекта todo
+    return await this.todoRepository.findOne({ where: { id } });
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.todoRepository.delete(id);
   }
 }
